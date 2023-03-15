@@ -1,7 +1,6 @@
 import React from 'react';
-import { useApi } from '../composables/useApi';
 
-export const allCartsPage = () => {
+export const AllCartsPage = () => {
   return (
     <>
 
