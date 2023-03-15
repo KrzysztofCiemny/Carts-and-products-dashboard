@@ -1,15 +1,20 @@
-import axios from "axios";
+import axios from 'axios'
+import { useState, useEffect } from 'react'
+import { CartBody } from '../models/models';
 
 export const useApi = () => {
-  const getAllCarts = async () => {
-    try {
-      const response = await axios.get('https://dummyjson.com/carts');
-      console.log(response.data)
+  const [allCarts, setAllCarts] = useState<CartBody[]>()
 
-    } catch (error) {
-
-    }
-  }
+  useEffect(() => {
+    axios.get('https://dummyjson.com/carts')
+      .then((response) => {
+        setAllCarts(response.data.carts)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }, []);
+  
   const getAllProducts = async () => {
     try {
       const response = await axios.get('https://dummyjson.com/products');
@@ -44,9 +49,10 @@ export const useApi = () => {
   }
 
   return {
-    getAllCarts,
+    // getAllCarts,
     getAllProducts,
     addCart,
     deleteCart,
+    allCarts
   }
 };
