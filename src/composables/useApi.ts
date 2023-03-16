@@ -1,58 +1,76 @@
-import axios from 'axios'
-import { useState, useEffect } from 'react'
-import { CartBody } from '../models/models';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { CartBody, ProductBody } from '../models/models';
 
 export const useApi = () => {
-  const [allCarts, setAllCarts] = useState<CartBody[]>()
+  const [allCarts, setAllCarts] = useState<CartBody[]>();
+  const [allProducts, setAllProducts] = useState<ProductBody[]>();
+  const [deletedCart, setDeletedCart] = useState<CartBody>();
 
-  useEffect(() => {
-    axios.get('https://dummyjson.com/carts')
+  const navigate = useNavigate();
+
+  const getAllCarts = () => {
+    axios
+      .get('https://dummyjson.com/carts')
       .then((response) => {
-        setAllCarts(response.data.carts)
+        window.localStorage.setItem('allCarts', JSON.stringify(response.data.carts));
+        setAllCarts(response.data.carts);
       })
       .catch((error) => {
         console.log(error);
-      })
-  }, []);
-  
+      });
+  };
+
   const getAllProducts = async () => {
     try {
       const response = await axios.get('https://dummyjson.com/products');
-      console.log(response.data)
-
+      setAllProducts(response.data.products);
     } catch (error) {
-
+      console.log(error);
     }
-  }
-  const addCart = async (products: string[]) => {
+  };
+
+  const addCart = async (products: ProductBody[]) => {
     try {
-      const response = await axios.post('https://dummyjson.com/carts/add', 
-        {
-          userId: 1,
-          products
-        }
-      );
-      console.log(response.data)
-
+      const response = await axios.post('https://dummyjson.com/carts/add', {
+        userId: 1,
+        products,
+      });
+      const newAllCarts = allCarts?.concat([
+        { ...response.data, id: allCarts.length + 1 },
+      ]);
+      window.localStorage.setItem('allCarts', JSON.stringify(newAllCarts));
+      setAllCarts(newAllCarts);
+      navigate('/');
     } catch (error) {
-
+      console.log(error);
     }
-  }
+  };
+
   const deleteCart = async (cartId: number) => {
     try {
       const response = await axios.delete(`https://dummyjson.com/carts/${cartId}`);
-      console.log(response.data)
-
+      setDeletedCart(response.data);
     } catch (error) {
-
+      console.log(error);
     }
-  }
+  };
+
+  useEffect(() => {
+    const localCarts = window.localStorage.getItem('allCarts');
+    localCarts && setAllCarts(JSON.parse(localCarts));
+  }, []);
 
   return {
-    // getAllCarts,
     getAllProducts,
     addCart,
     deleteCart,
-    allCarts
-  }
+    allCarts,
+    setAllCarts,
+    getAllCarts,
+    deletedCart,
+    allProducts,
+  };
 };
