@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Header,
-  Logo,
-  Nav,
-  NavWrapper,
-  StyledLink,
-} from './Navbar.styles';
+
+import { StyledLink } from '../NavLink';
+import { Header, Logo, Nav, NavWrapper } from './Navbar.styles';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,7 +29,7 @@ export const Navbar = () => {
         <Nav>
           <StyledLink to="/">Home</StyledLink>
           <StyledLink to="/allCarts">All carts</StyledLink>
-          <StyledLink to="/">Add cart</StyledLink>
+          <StyledLink to="/addCart">Add cart</StyledLink>
         </Nav>
       </NavWrapper>
     </Header>

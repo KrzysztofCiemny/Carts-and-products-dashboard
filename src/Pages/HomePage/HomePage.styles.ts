@@ -43,6 +43,7 @@ export const Container = styled.section`
   margin: 4em 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 100%;
 
   h3 {
@@ -51,7 +52,6 @@ export const Container = styled.section`
   }
 
   @media (min-width: 1024px) {
-
     h3 {
       font-size: 2rem;
       padding-left: 2rem;
@@ -86,4 +86,15 @@ export const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 2rem 0;
+`;
+
+export const ShowCartsButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+`;
+
+export const LinkContainer = styled.div`
+  display: flex;
+  padding: 1rem 2rem;
 `;

@@ -1,52 +1,51 @@
-import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
-import { ButtonsContainer, CartLogo, CartsContainer, Container, HeroBanner, HeroContent, InfoContainer } from './HomePage.styles';
+import { Cart } from '../../components/Cart/Cart';
+import { StyledLink } from '../../components/NavLink';
 import { useApi } from '../../composables/useApi';
+import {
+  CartsContainer,
+  Container,
+  HeroBanner,
+  HeroContent,
+  LinkContainer,
+  ShowCartsButtonContainer,
+} from './HomePage.styles';
 
 export const HomePage = () => {
-  const { allCarts } = useApi()
-  const fiveOfCarts = allCarts?.slice(0, 8)
+  const { allCarts, getAllCarts } = useApi();
 
   return (
     <>
       <HeroBanner>
         <HeroContent>
-          <h1>
-            Wellcome to Carts world.
-          </h1>
-          <p>Here you can see all carts,
-            you can add your carts with selected products,
-            you can delete them,
-            and you can also see the products contained in carts. </p>
+          <h1>Wellcome to Carts world.</h1>
+          <p>
+            Here you can see all carts, you can add your carts with selected products, you
+            can delete them, and you can also see the products contained in carts.{' '}
+          </p>
         </HeroContent>
       </HeroBanner>
       <Container>
         <h3>Carts</h3>
-        <CartsContainer>
-          {allCarts ? (fiveOfCarts!.map((cart) => (
-            <Card key={cart.id}>
-              <CartLogo>Cart {cart.id}</CartLogo>
-              <InfoContainer>
-                <p>Quantity: {cart.totalQuantity}</p>
-                <p>Total value: {cart.total}</p>
-              </InfoContainer>
-              <ButtonsContainer>
-                <Button type="button">
-                  Open
-                </Button>
-                <Button type="button">
-                  Delete
-                </Button>
-              </ButtonsContainer>
-            </Card>
-          ))) : (
-            <div>Loading..</div>
-          )}
-          {/* <Card>Cart 2</Card>
-          <Card>Cart 3</Card>
-          <Card>Cart 4</Card>
-          <Card>Cart 5</Card> */}
-        </CartsContainer>
+        <LinkContainer>
+          <StyledLink to={'/addCart'}>Add new cart</StyledLink>
+        </LinkContainer>
+        {allCarts ? (
+          <CartsContainer>
+            {allCarts.map((cart) => (
+              <Card key={cart.id}>
+                <Cart cart={cart} />
+              </Card>
+            ))}
+          </CartsContainer>
+        ) : (
+          <ShowCartsButtonContainer>
+            {/* <StyledLink to="/allCarts">Show all carts</StyledLink> */}
+            <button type="button" onClick={() => getAllCarts()}>
+              Show all carts
+            </button>
+          </ShowCartsButtonContainer>
+        )}
       </Container>
     </>
   );
