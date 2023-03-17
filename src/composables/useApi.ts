@@ -40,8 +40,12 @@ export const useApi = () => {
         products,
       })
       .then((response) => {
+        let biggestCartId = 0;
+        allCarts?.map((cart) => {
+          if (cart.id >= biggestCartId) biggestCartId = cart.id;
+        });
         const newAllCarts = allCarts?.concat([
-          { ...response.data, id: allCarts.length + 1 },
+          { ...response.data, id: biggestCartId + 1 },
         ]);
         window.localStorage.setItem('allCarts', JSON.stringify(newAllCarts));
         setAllCarts(newAllCarts);
