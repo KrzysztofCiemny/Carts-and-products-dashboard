@@ -1,3 +1,4 @@
+import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { Cart } from '../../components/Cart/Cart';
 import { StyledLink } from '../../components/NavLink';
@@ -12,7 +13,7 @@ import {
 } from './HomePage.styles';
 
 export const HomePage = () => {
-  const { allCarts, getAllCarts } = useApi();
+  const { allCarts, getAllCarts, deleteCart } = useApi();
   return (
     <>
       <HeroBanner>
@@ -33,16 +34,15 @@ export const HomePage = () => {
           <CartsContainer>
             {allCarts.map((cart) => (
               <Card key={cart.id}>
-                <Cart cart={cart} />
+                <Cart cart={cart} onDelete={() => deleteCart(cart.id, allCarts)} />
               </Card>
             ))}
           </CartsContainer>
         ) : (
           <ShowCartsButtonContainer>
-            {/* <StyledLink to="/allCarts">Show all carts</StyledLink> */}
-            <button type="button" onClick={() => getAllCarts()}>
+            <Button type="button" onClick={() => getAllCarts()}>
               Show all carts
-            </button>
+            </Button>
           </ShowCartsButtonContainer>
         )}
       </Container>

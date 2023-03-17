@@ -2,13 +2,12 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { CartBody, ProductBody } from '../models/models';
+import { CartBody, CreatedCartBody, ProductBody } from '../models/models';
 
 export const useApi = () => {
   const [allCarts, setAllCarts] = useState<CartBody[]>();
   const [allProducts, setAllProducts] = useState<ProductBody[]>();
   const [deletedCart, setDeletedCart] = useState<CartBody>();
-
   const navigate = useNavigate();
 
   const getAllCarts = () => {
@@ -23,39 +22,48 @@ export const useApi = () => {
       });
   };
 
-  const getAllProducts = async () => {
-    try {
-      const response = await axios.get('https://dummyjson.com/products');
-      setAllProducts(response.data.products);
-    } catch (error) {
-      console.log(error);
-    }
+  const getAllProducts = () => {
+    axios
+      .get('https://dummyjson.com/products')
+      .then((response) => {
+        setAllProducts(response.data.products);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-  const addCart = async (products: ProductBody[]) => {
-    try {
-      const response = await axios.post('https://dummyjson.com/carts/add', {
+  const addCart = (products: CreatedCartBody[]) => {
+    axios
+      .post('https://dummyjson.com/carts/add', {
         userId: 1,
         products,
+      })
+      .then((response) => {
+        const newAllCarts = allCarts?.concat([
+          { ...response.data, id: allCarts.length + 1 },
+        ]);
+        window.localStorage.setItem('allCarts', JSON.stringify(newAllCarts));
+        setAllCarts(newAllCarts);
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      const newAllCarts = allCarts?.concat([
-        { ...response.data, id: allCarts.length + 1 },
-      ]);
-      window.localStorage.setItem('allCarts', JSON.stringify(newAllCarts));
-      setAllCarts(newAllCarts);
-      navigate('/');
-    } catch (error) {
-      console.log(error);
-    }
   };
 
-  const deleteCart = async (cartId: number) => {
-    try {
-      const response = await axios.delete(`https://dummyjson.com/carts/${cartId}`);
-      setDeletedCart(response.data);
-    } catch (error) {
-      console.log(error);
-    }
+  const deleteCart = (cartId: number, carts: CartBody[]) => {
+    axios
+      .delete(`https://dummyjson.com/carts/${cartId}`)
+      .then((response) => {
+        const newAllCarts = carts.filter((cart) => cart.id !== response.data.id);
+        window.localStorage.setItem('allCarts', JSON.stringify(newAllCarts));
+        setAllCarts(newAllCarts);
+        setDeletedCart(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {

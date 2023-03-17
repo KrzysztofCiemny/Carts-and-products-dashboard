@@ -16,4 +16,7 @@ export const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 2rem 0;
+  span {
+    font-weight: 600;
+  }
 `;

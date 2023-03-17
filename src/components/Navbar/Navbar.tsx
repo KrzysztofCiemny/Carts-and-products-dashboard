@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { StyledLink } from '../NavLink';
 import { Header, Logo, Nav, NavWrapper } from './Navbar.styles';

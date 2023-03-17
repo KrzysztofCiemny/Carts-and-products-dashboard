@@ -40,10 +40,10 @@ export const HeroContent = styled.div`
 `;
 
 export const Container = styled.section`
-  margin: 4em 0;
+  margin: 3em 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
   width: 100%;
 
   h3 {
@@ -52,6 +52,7 @@ export const Container = styled.section`
   }
 
   @media (min-width: 1024px) {
+    align-items: unset;
     h3 {
       font-size: 2rem;
       padding-left: 2rem;
@@ -63,7 +64,10 @@ export const CartsContainer = styled.div`
   padding: 1rem;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   @media (min-width: 1024px) {
+    justify-content: unset;
     h3 {
       padding: 2rem;
     }
