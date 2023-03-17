@@ -34,7 +34,7 @@ export const HomePage = () => {
           <CartsContainer>
             {allCarts.map((cart) => (
               <Card key={cart.id}>
-                <Cart cart={cart} onDelete={() => deleteCart(cart.id, allCarts)} />
+                <Cart cart={cart} onDelete={() => deleteCart(cart, allCarts)} />
               </Card>
             ))}
           </CartsContainer>

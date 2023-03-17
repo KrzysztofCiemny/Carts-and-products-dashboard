@@ -7,7 +7,6 @@ import { CartBody, CreatedCartBody, ProductBody } from '../models/models';
 export const useApi = () => {
   const [allCarts, setAllCarts] = useState<CartBody[]>();
   const [allProducts, setAllProducts] = useState<ProductBody[]>();
-  const [deletedCart, setDeletedCart] = useState<CartBody>();
   const navigate = useNavigate();
 
   const getAllCarts = () => {
@@ -56,18 +55,10 @@ export const useApi = () => {
       });
   };
 
-  const deleteCart = (cartId: number, carts: CartBody[]) => {
-    axios
-      .delete(`https://dummyjson.com/carts/${cartId}`)
-      .then((response) => {
-        const newAllCarts = carts.filter((cart) => cart.id !== response.data.id);
-        window.localStorage.setItem('allCarts', JSON.stringify(newAllCarts));
-        setAllCarts(newAllCarts);
-        setDeletedCart(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const deleteCart = (cartToDelete: CartBody, carts: CartBody[]) => {
+    const newAllCarts = carts.filter((cart) => cart.id !== cartToDelete.id);
+    window.localStorage.setItem('allCarts', JSON.stringify(newAllCarts));
+    setAllCarts(newAllCarts);
   };
 
   useEffect(() => {
@@ -82,7 +73,6 @@ export const useApi = () => {
     allCarts,
     setAllCarts,
     getAllCarts,
-    deletedCart,
     allProducts,
   };
 };
