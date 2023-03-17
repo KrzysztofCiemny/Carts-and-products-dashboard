@@ -1,4 +1,5 @@
 import { useApi } from '../../composables/useApi';
+import { useOpenCart } from '../../composables/useOpenCart';
 import { CartBody } from '../../models/models';
 import { Button } from '../Button';
 import { ButtonsContainer, CartLogo, InfoContainer } from './Cart.styles';
@@ -9,6 +10,7 @@ interface Props {
 
 export const Cart = ({ cart }: Props) => {
   const { deleteCart } = useApi();
+  const { openCart } = useOpenCart();
 
   return (
     <>
@@ -18,7 +20,9 @@ export const Cart = ({ cart }: Props) => {
         <p>Total value: {cart.total}</p>
       </InfoContainer>
       <ButtonsContainer>
-        <Button type="button">Open</Button>
+        <Button type="button" onClick={() => openCart(cart)}>
+          Open
+        </Button>
         <Button type="button" onClick={() => deleteCart(cart.id)}>
           Delete
         </Button>

@@ -13,7 +13,6 @@ import {
 
 export const HomePage = () => {
   const { allCarts, getAllCarts } = useApi();
-
   return (
     <>
       <HeroBanner>

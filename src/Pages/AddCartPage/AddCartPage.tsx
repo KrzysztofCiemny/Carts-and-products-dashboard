@@ -27,7 +27,6 @@ export const AddCartPage = () => {
     } else {
       setCart([product]);
     }
-    console.log(cart);
     setCount(count + 1);
   };
 
