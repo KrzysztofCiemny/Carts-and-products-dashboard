@@ -28,7 +28,6 @@ export const Navbar = () => {
       <NavWrapper>
         <Nav>
           <StyledLink to="/">Home</StyledLink>
-          <StyledLink to="/allCarts">All carts</StyledLink>
           <StyledLink to="/addCart">Add cart</StyledLink>
         </Nav>
       </NavWrapper>
