@@ -21,24 +21,31 @@ export const Container = styled.section`
 
 export const HeaderContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
 `;
 
 export const CartToAdd = styled.div`
   display: flex;
   flex-direction: column;
+  align-self: center;
   background-color: ${({ theme }) => theme.card};
   padding: 0.2rem 1rem 1rem 1rem;
   border-radius: 1rem;
-  min-width: 10rem;
+  min-width: 20rem;
   box-shadow: 5px 5px 8px 1px gray;
+  span {
+    font-weight: 600;
+  }
 `;
 
 export const ProductsContainer = styled.div`
   padding: 1rem;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   @media (min-width: 1024px) {
+    justify-content: unset;
     h3 {
       padding: 2rem;
     }
@@ -61,4 +68,5 @@ export const ShowProductsButtonContainer = styled.div`
 export const LinkContainer = styled.div`
   display: flex;
   padding: 1rem 2rem;
+  margin-top: 2rem;
 `;

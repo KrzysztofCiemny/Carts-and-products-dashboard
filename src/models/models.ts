@@ -18,3 +18,8 @@ export interface ProductBody {
   discountedPrice: number;
   quantity: number;
 }
+
+export interface CreatedCartBody {
+  id: number;
+  quantity: number;
+}

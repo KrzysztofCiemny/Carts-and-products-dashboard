@@ -6,4 +6,4 @@ export const theme = {
   card: '#fff',
   button: '#f9cf40',
   buttonHover: '#dfac07',
-}
+};

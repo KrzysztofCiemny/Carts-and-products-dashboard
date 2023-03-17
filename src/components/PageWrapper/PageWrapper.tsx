@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
+
 import { Navbar } from '../Navbar/Navbar';
 import { ContentWrapper, InsideWrapper, Wrapper } from './PageWrapper.styles';
 

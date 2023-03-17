@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const Button = styled.button`
+interface Props {
+  disabled?: boolean;
+}
+
+export const Button = styled.button<Props>`
   min-width: 5rem;
   padding: 0.5rem 1rem;
   margin: 0 0.5rem;
@@ -10,6 +14,7 @@ export const Button = styled.button`
   background-color: ${({ theme }) => theme.button};
   color: ${({ theme }) => theme.primary};
   transition: all 0.3s ease-in-out;
+  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'unset')};
 
   :hover {
     background-color: ${({ theme }) => theme.buttonHover};
